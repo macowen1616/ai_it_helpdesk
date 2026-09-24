@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "query": "My laptop won't connect to Wi-Fi",
+    "expected_document": "wifi-troubleshooting.md"
+  },
+  {
+    "id": 2,
+    "query": "My wireless connection keeps dropping",
+    "expected_document": "wifi-troubleshooting.md"
+  },
+  {
+    "id": 3,
+    "query": "I can't join the wireless network",
+    "expected_document": "wifi-troubleshooting.md"
+  },
+  {
+    "id": 4,
+    "query": "My computer says it is connected but I have no internet",
+    "expected_document": "wifi-troubleshooting.md"
+  },
+  {
+    "id": 5,
+    "query": "How do I troubleshoot a Wi-Fi connection?",
+    "expected_document": "wifi-troubleshooting.md"
+  },
+  {
+    "id": 6,
+    "query": "I can't connect to the VPN",
+    "expected_document": "vpn-troubleshooting.md"
+  },
+  {
+    "id": 7,
+    "query": "The VPN keeps disconnecting",
+    "expected_document": "vpn-troubleshooting.md"
+  },
+  {
+    "id": 8,
+    "query": "How do I get my remote connection working?",
+    "expected_document": "vpn-troubleshooting.md"
+  },
+  {
+    "id": 9,
+    "query": "I forgot my account password",
+    "expected_document": "password-reset.md"
+  },
+  {
+    "id": 10,
+    "query": "How can I change my password?",
+    "expected_document": "password-reset.md"
+  },
+  {
+    "id": 11,
+    "query": "My password isn't working",
+    "expected_document": "password-reset.md"
+  },
+  {
+    "id": 12,
+    "query": "I am locked out of my account",
+    "expected_document": "password-reset.md"
+  },
+  {
+    "id": 13,
+    "query": "My printer won't print",
+    "expected_document": "printer-troubleshooting.md"
+  },
+  {
+    "id": 14,
+    "query": "The printer is not responding",
+    "expected_document": "printer-troubleshooting.md"
+  },
+  {
+    "id": 15,
+    "query": "How do I fix a printing problem?",
+    "expected_document": "printer-troubleshooting.md"
+  },
+  {
+    "id": 16,
+    "query": "I can't access the network drive",
+    "expected_document": "network-troubleshooting.md"
+  },
+  {
+    "id": 17,
+    "query": "I can't access shared files on the network",
+    "expected_document": "network-troubleshooting.md"
+  },
+  {
+    "id": 18,
+    "query": "My computer can't reach a network resource",
+    "expected_document": "network-troubleshooting.md"
+  },
+  {
+    "id": 19,
+    "query": "The network drive is unavailable",
+    "expected_document": "network-troubleshooting.md"
+  },
+  {
+    "id": 20,
+    "query": "I cannot connect to a shared folder",
+    "expected_document": "network-troubleshooting.md"
+  }
+]
