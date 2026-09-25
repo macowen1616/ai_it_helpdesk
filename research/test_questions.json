@@ -21,22 +21,22 @@
   },
   {
     "id": 5,
-    "query": "How do I troubleshoot a Wi-Fi connection?",
-    "expected_document": "wifi-troubleshooting.md"
-  },
-  {
-    "id": 6,
     "query": "I can't connect to the VPN",
     "expected_document": "vpn-troubleshooting.md"
   },
   {
-    "id": 7,
+    "id": 6,
     "query": "The VPN keeps disconnecting",
     "expected_document": "vpn-troubleshooting.md"
   },
   {
-    "id": 8,
+    "id": 7,
     "query": "How do I get my remote connection working?",
+    "expected_document": "vpn-troubleshooting.md"
+  },
+  {
+    "id": 8,
+    "query": "My VPN connection is not working",
     "expected_document": "vpn-troubleshooting.md"
   },
   {
@@ -76,27 +76,67 @@
   },
   {
     "id": 16,
+    "query": "The printer is offline",
+    "expected_document": "printer-troubleshooting.md"
+  },
+  {
+    "id": 17,
     "query": "I can't access the network drive",
     "expected_document": "network-troubleshooting.md"
   },
   {
-    "id": 17,
+    "id": 18,
     "query": "I can't access shared files on the network",
     "expected_document": "network-troubleshooting.md"
   },
   {
-    "id": 18,
+    "id": 19,
     "query": "My computer can't reach a network resource",
     "expected_document": "network-troubleshooting.md"
   },
   {
-    "id": 19,
+    "id": 20,
     "query": "The network drive is unavailable",
     "expected_document": "network-troubleshooting.md"
   },
   {
-    "id": 20,
-    "query": "I cannot connect to a shared folder",
-    "expected_document": "network-troubleshooting.md"
+    "id": 21,
+    "query": "I need to install a new application",
+    "expected_document": "software-installation.md"
+  },
+  {
+    "id": 22,
+    "query": "The software installation keeps failing",
+    "expected_document": "software-installation.md"
+  },
+  {
+    "id": 23,
+    "query": "The program I installed will not open",
+    "expected_document": "software-installation.md"
+  },
+  {
+    "id": 24,
+    "query": "How do I install approved software?",
+    "expected_document": "software-installation.md"
+  },
+  {
+    "id": 25,
+    "query": "I cannot send an email",
+    "expected_document": "email-troubleshooting.md"
+  },
+  {
+    "id": 26,
+    "query": "I am not receiving new emails",
+    "expected_document": "email-troubleshooting.md"
+  },
+  {
+    "id": 27,
+    "query": "My email application is not responding",
+    "expected_document": "email-troubleshooting.md"
+  },
+  {
+    "id": 28,
+    "query": "I can't find an email that someone sent me",
+    "expected_document": "email-troubleshooting.md"
   }
 ]

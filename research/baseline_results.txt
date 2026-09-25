@@ -1,0 +1,20 @@
+Keyword Search Baseline
+
+Test Set: 28 questions
+Correct: 25
+Incorrect: 3
+Accuracy: 89.29%
+
+Incorrect Results:
+
+7. How do I get my remote connection working?
+Expected: vpn-troubleshooting.md
+Actual: email-troubleshooting.md
+
+8. My VPN connection is not working
+Expected: vpn-troubleshooting.md
+Actual: email-troubleshooting.md
+
+21. I need to install a new application
+Expected: software-installation.md
+Actual: email-troubleshooting.md
