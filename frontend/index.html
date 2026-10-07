@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI IT Helpdesk</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .description {
+            text-align: center;
+            color: #555;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            margin-top: 20px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            display: block;
+            margin: 15px auto;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #response {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            white-space: pre-wrap;
+        }
+
+        .source {
+            margin-top: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>AI IT Helpdesk Assistant</h1>
+
+    <p class="description">
+        Describe your IT problem and the assistant will search the IT knowledge base.
+    </p>
+
+    <textarea
+        id="question"
+        placeholder="Example: My printer isn't working"
+    ></textarea>
+
+    <button onclick="askHelpdesk()">
+        Ask IT Helpdesk
+    </button>
+
+    <div id="response">
+        Your answer will appear here.
+    </div>
+
+    <div class="source" id="source"></div>
+
+    <script>
+        async function askHelpdesk() {
+            const question = document.getElementById("question").value;
+            const responseElement = document.getElementById("response");
+            const sourceElement = document.getElementById("source");
+
+            if (!question.trim()) {
+                responseElement.textContent = "Please enter an IT question.";
+                sourceElement.textContent = "";
+                return;
+            }
+
+            responseElement.textContent = "Thinking...";
+            sourceElement.textContent = "";
+
+            try {
+                const response = await fetch(
+                    `/ask?query=${encodeURIComponent(question)}`
+                );
+
+                const data = await response.json();
+
+                responseElement.textContent = data.response;
+
+                sourceElement.textContent =
+                    `Source: ${data.source} | Similarity score: ${data.score.toFixed(4)}`;
+
+            } catch (error) {
+                responseElement.textContent =
+                    "Unable to connect to the IT Helpdesk.";
+            }
+        }
+    </script>
+
+</body>
+</html>
