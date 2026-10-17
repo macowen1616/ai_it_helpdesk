@@ -1,3 +1,29 @@
+\# VPN Troubleshooting
+
+
+
+A VPN (virtual private network) is used to connect to the
+
+organization's network remotely. Questions about remote VPN access,
+
+connecting to the company network from home, or a remote VPN
+
+connection that is not working belong in this document.
+
+
+
+\## Unable to Connect to VPN
+
+
+
+If the VPN cannot connect, restart the VPN client and attempt
+
+to establish the connection again.
+
+
+
+If the VPN still cannot connect, restart the computer and try again.
+
 # VPN Troubleshooting
 
 ## Unable to Connect to VPN
@@ -24,3 +50,4 @@ Restart the VPN client and reconnect to the VPN.
 
 If the problem continues, determine whether other users are
 experiencing similar connection problems.
+

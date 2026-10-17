@@ -1,0 +1,232 @@
+{
+  "total_questions": 28,
+  "correct": 28,
+  "incorrect": 0,
+  "accuracy_percent": 100.0,
+  "results": [
+    {
+      "id": 1,
+      "query": "My laptop won't connect to Wi-Fi",
+      "expected_document": "wifi-troubleshooting.md",
+      "actual_document": "wifi-troubleshooting.md",
+      "score": 0.7643407466510076,
+      "correct": true
+    },
+    {
+      "id": 2,
+      "query": "My wireless connection keeps dropping",
+      "expected_document": "wifi-troubleshooting.md",
+      "actual_document": "wifi-troubleshooting.md",
+      "score": 0.6430759419752052,
+      "correct": true
+    },
+    {
+      "id": 3,
+      "query": "I can't join the wireless network",
+      "expected_document": "wifi-troubleshooting.md",
+      "actual_document": "wifi-troubleshooting.md",
+      "score": 0.70371725004281,
+      "correct": true
+    },
+    {
+      "id": 4,
+      "query": "My computer says it is connected but I have no internet",
+      "expected_document": "wifi-troubleshooting.md",
+      "actual_document": "wifi-troubleshooting.md",
+      "score": 0.715627982820062,
+      "correct": true
+    },
+    {
+      "id": 5,
+      "query": "I can't connect to the VPN",
+      "expected_document": "vpn-troubleshooting.md",
+      "actual_document": "vpn-troubleshooting.md",
+      "score": 0.7136498859475923,
+      "correct": true
+    },
+    {
+      "id": 6,
+      "query": "The VPN keeps disconnecting",
+      "expected_document": "vpn-troubleshooting.md",
+      "actual_document": "vpn-troubleshooting.md",
+      "score": 0.7257540578749822,
+      "correct": true
+    },
+    {
+      "id": 7,
+      "query": "How do I get my remote connection working?",
+      "expected_document": "vpn-troubleshooting.md",
+      "actual_document": "vpn-troubleshooting.md",
+      "score": 0.6766472290016062,
+      "correct": true
+    },
+    {
+      "id": 8,
+      "query": "My VPN connection is not working",
+      "expected_document": "vpn-troubleshooting.md",
+      "actual_document": "vpn-troubleshooting.md",
+      "score": 0.7637161905340618,
+      "correct": true
+    },
+    {
+      "id": 9,
+      "query": "I forgot my account password",
+      "expected_document": "password-reset.md",
+      "actual_document": "password-reset.md",
+      "score": 0.7028777386755449,
+      "correct": true
+    },
+    {
+      "id": 10,
+      "query": "How can I change my password?",
+      "expected_document": "password-reset.md",
+      "actual_document": "password-reset.md",
+      "score": 0.6421732632256058,
+      "correct": true
+    },
+    {
+      "id": 11,
+      "query": "My password isn't working",
+      "expected_document": "password-reset.md",
+      "actual_document": "password-reset.md",
+      "score": 0.6893022339999942,
+      "correct": true
+    },
+    {
+      "id": 12,
+      "query": "I am locked out of my account",
+      "expected_document": "password-reset.md",
+      "actual_document": "password-reset.md",
+      "score": 0.674102364106494,
+      "correct": true
+    },
+    {
+      "id": 13,
+      "query": "My printer won't print",
+      "expected_document": "printer-troubleshooting.md",
+      "actual_document": "printer-troubleshooting.md",
+      "score": 0.807257816121704,
+      "correct": true
+    },
+    {
+      "id": 14,
+      "query": "The printer is not responding",
+      "expected_document": "printer-troubleshooting.md",
+      "actual_document": "printer-troubleshooting.md",
+      "score": 0.8198339362184084,
+      "correct": true
+    },
+    {
+      "id": 15,
+      "query": "How do I fix a printing problem?",
+      "expected_document": "printer-troubleshooting.md",
+      "actual_document": "printer-troubleshooting.md",
+      "score": 0.7982891032583411,
+      "correct": true
+    },
+    {
+      "id": 16,
+      "query": "The printer is offline",
+      "expected_document": "printer-troubleshooting.md",
+      "actual_document": "printer-troubleshooting.md",
+      "score": 0.7742589510082716,
+      "correct": true
+    },
+    {
+      "id": 17,
+      "query": "I can't access the network drive",
+      "expected_document": "network-troubleshooting.md",
+      "actual_document": "network-troubleshooting.md",
+      "score": 0.6870415628943147,
+      "correct": true
+    },
+    {
+      "id": 18,
+      "query": "I can't access shared files on the network",
+      "expected_document": "network-troubleshooting.md",
+      "actual_document": "network-troubleshooting.md",
+      "score": 0.7900555018958538,
+      "correct": true
+    },
+    {
+      "id": 19,
+      "query": "My computer can't reach a network resource",
+      "expected_document": "network-troubleshooting.md",
+      "actual_document": "network-troubleshooting.md",
+      "score": 0.7762874782807564,
+      "correct": true
+    },
+    {
+      "id": 20,
+      "query": "The network drive is unavailable",
+      "expected_document": "network-troubleshooting.md",
+      "actual_document": "network-troubleshooting.md",
+      "score": 0.6877087857886723,
+      "correct": true
+    },
+    {
+      "id": 21,
+      "query": "I need to install a new application",
+      "expected_document": "software-installation.md",
+      "actual_document": "software-installation.md",
+      "score": 0.6848442208196037,
+      "correct": true
+    },
+    {
+      "id": 22,
+      "query": "The software installation keeps failing",
+      "expected_document": "software-installation.md",
+      "actual_document": "software-installation.md",
+      "score": 0.7958574621820026,
+      "correct": true
+    },
+    {
+      "id": 23,
+      "query": "The program I installed will not open",
+      "expected_document": "software-installation.md",
+      "actual_document": "software-installation.md",
+      "score": 0.6965797714233288,
+      "correct": true
+    },
+    {
+      "id": 24,
+      "query": "How do I install approved software?",
+      "expected_document": "software-installation.md",
+      "actual_document": "software-installation.md",
+      "score": 0.7662369951251227,
+      "correct": true
+    },
+    {
+      "id": 25,
+      "query": "I cannot send an email",
+      "expected_document": "email-troubleshooting.md",
+      "actual_document": "email-troubleshooting.md",
+      "score": 0.7311412484192018,
+      "correct": true
+    },
+    {
+      "id": 26,
+      "query": "I am not receiving new emails",
+      "expected_document": "email-troubleshooting.md",
+      "actual_document": "email-troubleshooting.md",
+      "score": 0.6714344688152678,
+      "correct": true
+    },
+    {
+      "id": 27,
+      "query": "My email application is not responding",
+      "expected_document": "email-troubleshooting.md",
+      "actual_document": "email-troubleshooting.md",
+      "score": 0.7369443591354388,
+      "correct": true
+    },
+    {
+      "id": 28,
+      "query": "I can't find an email that someone sent me",
+      "expected_document": "email-troubleshooting.md",
+      "actual_document": "email-troubleshooting.md",
+      "score": 0.6087512013101749,
+      "correct": true
+    }
+  ]
+}
