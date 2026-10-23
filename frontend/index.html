@@ -3,114 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI IT Helpdesk</title>
-
+    <meta name="theme-color" content="#101c2d">
+    <title>IT Support | Helpdesk Assistant</title>
     <style>
+        :root {
+            color-scheme: light;
+            --ink: #182638;
+            --muted: #718096;
+            --line: #e5eaf0;
+            --paper: #fff;
+            --canvas: #f4f7fa;
+            --navy: #101c2d;
+            --blue: #2864dc;
+            --blue-dark: #1e50b5;
+            --mint: #b5ecd7;
+            --shadow: 0 16px 40px rgba(26, 46, 76, .07);
+        }
+
+        * { box-sizing: border-box; }
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+            color: var(--ink);
+            background: var(--canvas);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
-        h1 {
-            text-align: center;
+        .app { min-height: 100vh; display: grid; grid-template-columns: 250px minmax(0, 1fr); }
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 27px 20px 22px;
+            color: #d8e1ed;
+            background: var(--navy);
         }
+        .brand { display: flex; align-items: center; gap: 12px; padding: 0 8px; }
+        .brand-mark {
+            display: grid; place-items: center; width: 39px; height: 39px;
+            color: #102336; background: var(--mint); border-radius: 12px;
+        }
+        .brand-mark svg { width: 21px; height: 21px; }
+        .brand-name { color: #fff; font-size: 14px; font-weight: 700; letter-spacing: .01em; }
+        .brand-subtitle { margin-top: 3px; color: #8fa1b7; font-size: 11px; }
+        .nav-label { margin: 43px 10px 12px; color: #8192a8; font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 11px 12px; color: #fff; background: rgba(255,255,255,.09); border-radius: 9px; font-size: 13px; font-weight: 600; }
+        .nav-item svg { width: 17px; height: 17px; color: #b5ecd7; }
+        .sidebar-spacer { flex: 1; }
+        .sidebar-note { padding: 16px; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; background: rgba(255,255,255,.04); }
+        .sidebar-note-title { margin: 0 0 7px; color: #fff; font-size: 12px; font-weight: 650; }
+        .sidebar-note p { margin: 0; color: #9aabc0; font-size: 11px; line-height: 1.6; }
+        .sidebar-footer { margin-top: 18px; padding: 0 5px; color: #71849c; font-size: 10px; }
 
-        .description {
-            text-align: center;
-            color: #555;
-        }
+        .main { min-width: 0; }
+        .topbar { height: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 5.2%; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.78); }
+        .breadcrumb { color: #8390a1; font-size: 12px; }
+        .breadcrumb strong { color: #344357; font-weight: 600; }
+        .profile { display: flex; align-items: center; gap: 10px; color: #556579; font-size: 12px; }
+        .avatar { display: grid; place-items: center; width: 33px; height: 33px; color: #2455a6; background: #e6efff; border-radius: 50%; font-size: 11px; font-weight: 700; }
 
-        textarea {
-            width: 100%;
-            height: 120px;
-            padding: 12px;
-            margin-top: 20px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
+        .content { width: min(100% - 48px, 850px); margin: 0 auto; padding: 56px 0 64px; }
+        .eyebrow { display: flex; align-items: center; gap: 8px; margin: 0 0 13px; color: #38705d; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+        .eyebrow-dot { width: 7px; height: 7px; background: #49b88a; border-radius: 50%; box-shadow: 0 0 0 4px #e0f5eb; }
+        h1 { margin: 0; color: #17263a; font-size: clamp(29px, 4vw, 39px); font-weight: 690; letter-spacing: -.04em; line-height: 1.15; }
+        .intro { max-width: 600px; margin: 13px 0 30px; color: var(--muted); font-size: 15px; line-height: 1.65; }
 
-        button {
-            display: block;
-            margin: 15px auto;
-            padding: 12px 24px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+        .ask-card, .answer-card { border: 1px solid var(--line); border-radius: 15px; background: var(--paper); box-shadow: var(--shadow); }
+        .ask-card { padding: 22px; }
+        .field-label { display: block; margin: 0 0 10px; color: #354459; font-size: 12px; font-weight: 650; }
+        textarea { display: block; width: 100%; min-height: 118px; resize: vertical; padding: 15px 16px; border: 1px solid #dce3eb; border-radius: 10px; outline: none; color: var(--ink); background: #fcfdff; font: inherit; font-size: 14px; line-height: 1.6; transition: border-color .15s, box-shadow .15s; }
+        textarea::placeholder { color: #9aa7b6; }
+        textarea:focus { border-color: #7ca0ec; box-shadow: 0 0 0 3px rgba(40,100,220,.11); }
+        .form-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 15px; }
+        .privacy-note { display: flex; align-items: center; gap: 7px; color: #8491a1; font-size: 11px; }
+        .privacy-note svg { width: 15px; height: 15px; color: #6d9a82; }
+        .submit-button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 43px; padding: 0 17px; border: 0; border-radius: 9px; color: #fff; background: var(--blue); cursor: pointer; font: inherit; font-size: 12px; font-weight: 650; transition: background .15s, transform .15s; }
+        .submit-button:hover { background: var(--blue-dark); transform: translateY(-1px); }
+        .submit-button:disabled { opacity: .68; cursor: wait; transform: none; }
+        .submit-button svg { width: 15px; height: 15px; }
 
-        #response {
-            margin-top: 30px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            white-space: pre-wrap;
-        }
+        .examples { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 21px 0 31px; }
+        .examples-label { margin-right: 2px; color: #8290a0; font-size: 11px; }
+        .example { padding: 8px 11px; border: 1px solid #e0e7ef; border-radius: 999px; color: #59697c; background: #fff; cursor: pointer; font: inherit; font-size: 11px; transition: border-color .15s, color .15s; }
+        .example:hover { border-color: #a9bee9; color: var(--blue-dark); }
 
-        .source {
-            margin-top: 15px;
-            color: #666;
-            font-size: 14px;
+        .answer-card { overflow: hidden; }
+        .answer-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 17px 20px; border-bottom: 1px solid #edf0f4; }
+        .answer-title { display: flex; align-items: center; gap: 10px; color: #26374d; font-size: 12px; font-weight: 700; }
+        .answer-icon { display: grid; place-items: center; width: 29px; height: 29px; color: #2864c9; background: #edf3ff; border-radius: 9px; }
+        .answer-icon svg { width: 16px; height: 16px; }
+        .status { display: inline-flex; align-items: center; gap: 6px; color: #719080; font-size: 10px; font-weight: 600; }
+        .status-dot { width: 6px; height: 6px; background: #58b98a; border-radius: 50%; }
+        .answer-body { min-height: 131px; padding: 20px; }
+        #response { margin: 0; color: #657387; font-size: 13px; line-height: 1.75; white-space: pre-wrap; overflow-wrap: anywhere; }
+        #response.has-answer { color: #344357; }
+        #response.is-error { color: #a84747; }
+        #source { display: none; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 17px; padding-top: 14px; border-top: 1px solid #edf0f4; color: #748296; font-size: 10px; }
+        #source.visible { display: flex; }
+        .source-label { color: #929eac; }
+        .source-value { color: #52657d; font-weight: 600; }
+        .score-value { padding: 4px 7px; border-radius: 5px; color: #446f5b; background: #edf7f1; font-variant-numeric: tabular-nums; }
+        .spinner { width: 13px; height: 13px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 760px) {
+            .app { grid-template-columns: 1fr; }
+            .sidebar { min-height: auto; padding: 14px 20px; }
+            .brand { padding: 0; }
+            .nav-label, .nav-item, .sidebar-note, .sidebar-footer { display: none; }
+            .sidebar-spacer { display: none; }
+            .topbar { height: 56px; padding: 0 20px; }
+            .content { width: min(100% - 36px, 620px); padding: 39px 0 48px; }
         }
+        @media (max-width: 480px) {
+            .profile span { display: none; }
+            .content { width: calc(100% - 28px); padding-top: 32px; }
+            .intro { font-size: 14px; }
+            .ask-card { padding: 16px; }
+            .form-footer { align-items: flex-start; flex-direction: column; }
+            .submit-button { width: 100%; }
+            .examples-label { flex-basis: 100%; }
+            .answer-heading, .answer-body { padding-right: 16px; padding-left: 16px; }
+        }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
     </style>
 </head>
-
 <body>
+    <div class="app">
+        <aside class="sidebar" aria-label="Main navigation">
+            <div class="brand">
+                <div class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><path d="M4 13h3v6H6a2 2 0 0 1-2-2v-4Zm16 0h-3v6h1a2 2 0 0 0 2-2v-4Z"/><path d="M17 19a5 5 0 0 1-5 2"/></svg>
+                </div>
+                <div><div class="brand-name">Northstar IT</div><div class="brand-subtitle">Employee support</div></div>
+            </div>
+            <div class="nav-label">Workspace</div>
+            <div class="nav-item" aria-current="page">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v5c0 5 3.4 8 8 9 4.6-1 8-4 8-9V7l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg>
+                Helpdesk assistant
+            </div>
+            <div class="sidebar-spacer"></div>
+            <div class="sidebar-note"><p class="sidebar-note-title">Need more help?</p><p>If your issue is urgent or not covered here, contact your IT support team.</p></div>
+            <div class="sidebar-footer">Knowledge powered support</div>
+        </aside>
 
-    <h1>AI IT Helpdesk Assistant</h1>
+        <main class="main">
+            <header class="topbar">
+                <div class="breadcrumb">Support <span aria-hidden="true">/</span> <strong>Helpdesk assistant</strong></div>
+                <div class="profile"><div class="avatar" aria-hidden="true">IT</div><span>Employee portal</span></div>
+            </header>
 
-    <p class="description">
-        Describe your IT problem and the assistant will search the IT knowledge base.
-    </p>
+            <section class="content" aria-labelledby="page-title">
+                <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> IT support, made simpler</p>
+                <h1 id="page-title">How can we help?</h1>
+                <p class="intro">Describe the issue you’re having. The assistant will look through the IT knowledge base and share the most relevant guidance.</p>
 
-    <textarea
-        id="question"
-        placeholder="Example: My printer isn't working"
-    ></textarea>
+                <form class="ask-card" id="question-form">
+                    <label class="field-label" for="question">What do you need help with?</label>
+                    <textarea id="question" name="question" placeholder="For example, I can’t connect to the office Wi-Fi…" required></textarea>
+                    <div class="form-footer">
+                        <div class="privacy-note">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/><path d="M12 14v3"/></svg>
+                            Answers are based on your IT documentation
+                        </div>
+                        <button class="submit-button" id="submit-button" type="submit">
+                            <span id="button-label">Ask IT Support</span>
+                            <svg id="button-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                        </button>
+                    </div>
+                </form>
 
-    <button onclick="askHelpdesk()">
-        Ask IT Helpdesk
-    </button>
+                <div class="examples" aria-label="Example questions">
+                    <span class="examples-label">Try asking about</span>
+                    <button class="example" type="button" data-question="I can’t connect to Wi-Fi">Wi-Fi connection</button>
+                    <button class="example" type="button" data-question="How do I reset my password?">Password reset</button>
+                    <button class="example" type="button" data-question="My printer is not working">Printer issue</button>
+                </div>
 
-    <div id="response">
-        Your answer will appear here.
+                <section class="answer-card" aria-labelledby="answer-heading">
+                    <div class="answer-heading">
+                        <div class="answer-title" id="answer-heading">
+                            <span class="answer-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2m0 14v2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42M3 12h2m14 0h2M5.64 18.36l1.42-1.42m9.88-9.88 1.42-1.42"/><circle cx="12" cy="12" r="4"/></svg></span>
+                            Helpdesk response
+                        </div>
+                        <span class="status"><span class="status-dot" aria-hidden="true"></span> Ready to assist</span>
+                    </div>
+                    <div class="answer-body" aria-live="polite" aria-busy="false">
+                        <p id="response">Your answer will appear here. Ask a question above to get started.</p>
+                        <div id="source"></div>
+                    </div>
+                </section>
+            </section>
+        </main>
     </div>
 
-    <div class="source" id="source"></div>
-
     <script>
-        async function askHelpdesk() {
-            const question = document.getElementById("question").value;
-            const responseElement = document.getElementById("response");
-            const sourceElement = document.getElementById("source");
+        const form = document.getElementById("question-form");
+        const questionInput = document.getElementById("question");
+        const responseElement = document.getElementById("response");
+        const sourceElement = document.getElementById("source");
+        const submitButton = document.getElementById("submit-button");
+        const buttonLabel = document.getElementById("button-label");
+        const buttonArrow = document.getElementById("button-arrow");
+        const answerBody = document.querySelector(".answer-body");
 
-            if (!question.trim()) {
+        document.querySelectorAll(".example").forEach((button) => {
+            button.addEventListener("click", () => {
+                questionInput.value = button.dataset.question;
+                questionInput.focus();
+            });
+        });
+
+        form.addEventListener("submit", askHelpdesk);
+
+        async function askHelpdesk(event) {
+            event.preventDefault();
+            const question = questionInput.value.trim();
+
+            if (!question) {
                 responseElement.textContent = "Please enter an IT question.";
-                sourceElement.textContent = "";
+                responseElement.className = "is-error";
+                sourceElement.classList.remove("visible");
                 return;
             }
 
-            responseElement.textContent = "Thinking...";
+            responseElement.textContent = "Searching the IT knowledge base…";
+            responseElement.className = "";
             sourceElement.textContent = "";
+            sourceElement.classList.remove("visible");
+            submitButton.disabled = true;
+            buttonLabel.textContent = "Searching…";
+            buttonArrow.outerHTML = '<span class="spinner" id="button-arrow" aria-hidden="true"></span>';
+            answerBody.setAttribute("aria-busy", "true");
 
             try {
-                const response = await fetch(
-                    `/ask?query=${encodeURIComponent(question)}`
-                );
-
+                const response = await fetch(`/ask?query=${encodeURIComponent(question)}`);
+                if (!response.ok) throw new Error("The helpdesk request could not be completed.");
                 const data = await response.json();
 
                 responseElement.textContent = data.response;
+                responseElement.className = "has-answer";
+                if (data.source !== undefined || data.score !== undefined) {
+                    const sourceLabel = document.createElement("span");
+                    sourceLabel.className = "source-label";
+                    sourceLabel.textContent = "Knowledge source";
 
-                sourceElement.textContent =
-                    `Source: ${data.source} | Similarity score: ${data.score.toFixed(4)}`;
+                    const sourceValue = document.createElement("span");
+                    sourceValue.className = "source-value";
+                    sourceValue.textContent = data.source ?? "Not available";
+                    sourceElement.append(sourceLabel, sourceValue);
 
+                    if (data.score !== undefined && data.score !== null) {
+                        const scoreLabel = document.createElement("span");
+                        scoreLabel.className = "source-label";
+                        scoreLabel.textContent = "Match score";
+                        const scoreValue = document.createElement("span");
+                        scoreValue.className = "score-value";
+                        const score = Number(data.score);
+                        scoreValue.textContent = Number.isFinite(score) ? score.toFixed(4) : String(data.score);
+                        sourceElement.append(scoreLabel, scoreValue);
+                    }
+                    sourceElement.classList.add("visible");
+                }
             } catch (error) {
-                responseElement.textContent =
-                    "Unable to connect to the IT Helpdesk.";
+                responseElement.textContent = "Unable to connect to the IT Helpdesk. Please try again in a moment.";
+                responseElement.className = "is-error";
+            } finally {
+                submitButton.disabled = false;
+                buttonLabel.textContent = "Ask IT Support";
+                const spinner = document.getElementById("button-arrow");
+                if (spinner) spinner.outerHTML = '<svg id="button-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+                answerBody.setAttribute("aria-busy", "false");
             }
         }
     </script>
-
 </body>
 </html>
