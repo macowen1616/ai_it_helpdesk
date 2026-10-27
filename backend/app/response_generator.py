@@ -1,6 +1,4 @@
-
-
-import ollama
+﻿import ollama
 
 
 MODEL = "llama3.2:latest"
@@ -21,52 +19,52 @@ def generate_response(query: str, search_results: list):
         for result in search_results[:2]
     )
 
-    prompt = f"""
-You are a helpful IT helpdesk assistant for employees.
+    system_prompt = """
+You are an IT helpdesk assistant. Your job is to explain the
+provided IT documentation accurately.
 
-Answer the user's question using the relevant information in the
-provided IT documentation.
+STRICT RULES:
+1. Treat the supplied documentation as your only source of facts.
+2. Never add steps, websites, buttons, emails, commands, or procedures
+   that are not explicitly stated in the documentation.
+3. Do not fill gaps using your general IT knowledge.
+4. Rephrase documented information if helpful, but do not change
+   its meaning or add new factual details.
+5. If the document describes a general process but not its exact
+   steps, explain only the general process. Do not invent the steps.
+6. If no useful answer is supported by the documentation, say:
+   "The available IT documentation does not provide enough
+   information to answer this question. Please contact IT support
+   for assistance."
 
-User question:
-{query}
+Example:
+Documentation: "Use the organization's approved password-reset
+process. Verify the user's identity before resetting the password."
+Question: "How do I reset my password?"
+Good answer: "Follow your organization's approved password-reset
+process. Verify your identity according to the organization's
+security procedures before the password is reset."
+Bad answer: "Click Forgot Password on the login page and wait for
+a reset email." Those steps were not documented.
 
-IT documentation:
-{context}
-
-Rules:
-- Read the documentation carefully and identify the information
-  that answers the user's question.
-- Explain the relevant information in plain, helpful language.
-- If the documentation provides troubleshooting steps, present
-  those steps as a numbered list.
-- You may rephrase and organize the documented information to make
-  it easier to understand.
-- Do not invent commands, links, settings, procedures, or technical
-  steps that are not supported by the documentation.
-- If the documentation answers only part of the question, explain
-  what it does answer and identify what information is missing.
-- If the documentation contains no useful information for the
-  question, say that the available IT documentation does not provide
-  enough information and recommend contacting IT support.
-- Do not refuse to answer just because the documentation does not
-  contain every possible detail.
-- Do not mention similarity scores or internal search processes.
-
-Write a concise, useful answer for a non-technical employee.
+Answer clearly and concisely. Do not add greetings or filler.
 """
 
     response = ollama.chat(
         model=MODEL,
         messages=[
+            {"role": "system", "content": system_prompt},
             {
                 "role": "user",
-                "content": prompt,
-            }
+                "content": (
+                    f"Question:\n{query}\n\n"
+                    f"Documentation:\n{context}\n\n"
+                    "Answer the question using only this documentation."
+                ),
+            },
         ],
-        options={"temperature": 0.1},
+        options={"temperature": 0},
     )
 
     answer = response["message"]["content"].strip()
-
     return answer if answer else fallback
-
