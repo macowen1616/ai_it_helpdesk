@@ -1,27 +1,42 @@
-﻿import ollama
+﻿
+import ollama
 
 
 MODEL = "llama3.2:latest"
 
 
-def generate_response(query: str, search_results: list):
-    fallback = (
-        "The available IT documentation does not provide enough "
-        "information to answer this question. Please contact IT "
-        "support for assistance."
-    )
+def generate_response(query: str, search_results: list, language: str = "en"):
+    fallback = {
+        "en": (
+            "The available IT documentation does not provide enough "
+            "information to answer this question. Please contact IT "
+            "support for assistance."
+        ),
+        "es": (
+            "La documentación de TI disponible no proporciona suficiente "
+            "información para responder esta pregunta. Comuníquese con "
+            "el soporte de TI para obtener ayuda."
+        ),
+    }
+
+    if language not in ("en", "es"):
+        raise ValueError("Unsupported language.")
 
     if not search_results:
-        return fallback
+        return fallback[language]
 
     context = "\n\n".join(
         f"Document: {result['document']}\n{result['text']}"
         for result in search_results[:2]
     )
 
-    system_prompt = """
+    response_language = "English" if language == "en" else "Spanish"
+
+    system_prompt = f"""
 You are an IT helpdesk assistant. Your job is to explain the
 provided IT documentation accurately.
+
+Respond in {response_language}.
 
 STRICT RULES:
 1. Treat the supplied documentation as your only source of facts.
@@ -59,7 +74,8 @@ Answer clearly and concisely. Do not add greetings or filler.
                 "content": (
                     f"Question:\n{query}\n\n"
                     f"Documentation:\n{context}\n\n"
-                    "Answer the question using only this documentation."
+                    f"Answer the question in {response_language} "
+                    "using only this documentation."
                 ),
             },
         ],
@@ -67,4 +83,4 @@ Answer clearly and concisely. Do not add greetings or filler.
     )
 
     answer = response["message"]["content"].strip()
-    return answer if answer else fallback
+    return answer if answer else fallback[language]
