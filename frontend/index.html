@@ -186,15 +186,15 @@
 </header>
 
             <section class="content" aria-labelledby="page-title">
-                <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> IT support, made simpler</p>
+                <p class="eyebrow" id="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> IT support, made simpler</p>
                 <h1 id="page-title">How can we help?</h1>
-                <p class="intro">Describe the issue you’re having. The assistant will look through the IT knowledge base and share the most relevant guidance.</p>
+                <p class="intro" id="intro">Describe the issue you’re having. The assistant will look through the IT knowledge base and share the most relevant guidance.</p>
 
                 <form class="ask-card" id="question-form">
-                    <label class="field-label" for="question">What do you need help with?</label>
+                    <label class="field-label" id="question-label" for="question">What do you need help with?</label>
                     <textarea id="question" name="question" placeholder="For example, I can’t connect to the office Wi-Fi…" required></textarea>
                     <div class="form-footer">
-                        <div class="privacy-note">
+                        <div class="privacy-note" id="privacy-note">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/><path d="M12 14v3"/></svg>
                             Answers are based on your IT documentation
                         </div>
@@ -206,7 +206,7 @@
                 </form>
 
                 <div class="examples" aria-label="Example questions">
-                    <span class="examples-label">Try asking about</span>
+                    <span class="examples-label" id="examples-label">Try asking about</span>
                     <button class="example" type="button" data-question="Wifi Troubleshooting">Wi-Fi connection</button>
                     <button class="example" type="button" data-question="How do I reset my password?">Password reset</button>
                     <button class="example" type="button" data-question="My printer troubleshooting">Printer issue</button>
