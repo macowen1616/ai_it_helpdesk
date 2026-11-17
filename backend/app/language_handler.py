@@ -23,9 +23,12 @@ def translate_query_to_english(query: str, language: str):
             {
                 "role": "system",
                 "content": (
-                    "Translate the user's IT support question into English. "
+                    "You are a professional Spanish-to-English translator. "
+                    "Translate the user's entire question from Spanish into "
+                    "natural English. The output MUST be in English. "
+                    "Do not repeat the Spanish question. "
                     "Preserve the original meaning and technical terms. "
-                    "Return only the translated question. "
+                    "Return only the English translation. "
                     "Do not answer the question."
                 ),
             },
@@ -37,4 +40,9 @@ def translate_query_to_english(query: str, language: str):
         options={"temperature": 0},
     )
 
-    return response["message"]["content"].strip()
+    translated = response["message"]["content"].strip()
+
+    if not translated:
+        raise ValueError("Translation returned an empty response.")
+
+    return translated
