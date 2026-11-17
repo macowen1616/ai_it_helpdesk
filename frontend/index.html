@@ -58,6 +58,28 @@
 
         .main { min-width: 0; }
         .topbar { height: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 5.2%; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.78); }
+        .language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.language-switcher select {
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: white;
+    color: var(--text);
+    font: inherit;
+    cursor: pointer;
+}
+
+.language-switcher select:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
         .breadcrumb { color: #8390a1; font-size: 12px; }
         .breadcrumb strong { color: #344357; font-weight: 600; }
         .profile { display: flex; align-items: center; gap: 10px; color: #556579; font-size: 12px; }
@@ -210,6 +232,7 @@
     <script>
         const form = document.getElementById("question-form");
         const questionInput = document.getElementById("question");
+        const languageSelect = document.getElementById("language-select");
         const responseElement = document.getElementById("response");
         const sourceElement = document.getElementById("source");
         const submitButton = document.getElementById("submit-button");
@@ -247,7 +270,8 @@
             answerBody.setAttribute("aria-busy", "true");
 
             try {
-                const response = await fetch(`/ask?query=${encodeURIComponent(question)}`);
+                const language = languageSelect.value;
+                const response = await fetch(`/ask?query=${encodeURIComponent(question)}&language=${language}`);
                 if (!response.ok) throw new Error("The helpdesk request could not be completed.");
                 const data = await response.json();
 
