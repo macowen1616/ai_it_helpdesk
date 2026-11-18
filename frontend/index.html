@@ -186,7 +186,7 @@
 </header>
 
             <section class="content" aria-labelledby="page-title">
-                <p class="eyebrow" id="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> IT support, made simpler</p>
+                <p class="eyebrow" id="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> <span id="eyebrow-text">IT support, made simpler</span></p>
                 <h1 id="page-title">How can we help?</h1>
                 <p class="intro" id="intro">Describe the issue you’re having. The assistant will look through the IT knowledge base and share the most relevant guidance.</p>
 
@@ -194,10 +194,16 @@
                     <label class="field-label" id="question-label" for="question">What do you need help with?</label>
                     <textarea id="question" name="question" placeholder="For example, I can’t connect to the office Wi-Fi…" required></textarea>
                     <div class="form-footer">
-                        <div class="privacy-note" id="privacy-note">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/><path d="M12 14v3"/></svg>
-                            Answers are based on your IT documentation
-                        </div>
+<div class="privacy-note" id="privacy-note">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="1.8" stroke-linecap="round"
+         stroke-linejoin="round" aria-hidden="true">
+        <rect x="5" y="10" width="14" height="11" rx="2"/>
+        <path d="M8 10V7a4 4 0 1 1 8 0v3"/>
+        <path d="M12 14v3"/>
+    </svg>
+    <span id="privacy-note-text">Answers are based on your IT documentation</span>
+</div>
                         <button class="submit-button" id="submit-button" type="submit">
                             <span id="button-label">Ask IT Support</span>
                             <svg id="button-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -207,18 +213,18 @@
 
                 <div class="examples" aria-label="Example questions">
                     <span class="examples-label" id="examples-label">Try asking about</span>
-                    <button class="example" type="button" data-question="Wifi Troubleshooting">Wi-Fi connection</button>
-                    <button class="example" type="button" data-question="How do I reset my password?">Password reset</button>
-                    <button class="example" type="button" data-question="My printer troubleshooting">Printer issue</button>
+                    <button class="example" id="example-wifi" type="button" data-question="Wifi Troubleshooting">Wi-Fi connection</button>
+                    <button class="example" id="example-password" type="button" data-question="How do I reset my password?">Password reset</button>
+                    <button class="example" id="example-printer" type="button" data-question="My printer troubleshooting">Printer issue</button>
                 </div>
 
                 <section class="answer-card" aria-labelledby="answer-heading">
                     <div class="answer-heading">
                         <div class="answer-title" id="answer-heading">
                             <span class="answer-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2m0 14v2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42M3 12h2m14 0h2M5.64 18.36l1.42-1.42m9.88-9.88 1.42-1.42"/><circle cx="12" cy="12" r="4"/></svg></span>
-                            Helpdesk response
+                        <span id="answer-title-text">Helpdesk response</span>
                         </div>
-                        <span class="status"><span class="status-dot" aria-hidden="true"></span> Ready to assist</span>
+                        <span class="status"><span class="status-dot" aria-hidden="true"></span> <span id="status-text">Ready to assist</span></span>
                     </div>
                     <div class="answer-body" aria-live="polite" aria-busy="false">
                         <p id="response">Your answer will appear here. Ask a question above to get started.</p>
@@ -233,12 +239,104 @@
         const form = document.getElementById("question-form");
         const questionInput = document.getElementById("question");
         const languageSelect = document.getElementById("language-select");
+        const pageTitle = document.getElementById("page-title");
+        const eyebrow = document.getElementById("eyebrow-text");
+        const intro = document.getElementById("intro");
+        const questionLabel = document.getElementById("question-label");
+        const privacyNote = document.getElementById("privacy-note-text");
+        const examplesLabel = document.getElementById("examples-label");
+        const answerTitle = document.getElementById("answer-title-text");
+        const statusText = document.getElementById("status-text");
+
+        const wifiExample = document.getElementById("example-wifi");
+        const passwordExample = document.getElementById("example-password");
+        const printerExample = document.getElementById("example-printer");
         const responseElement = document.getElementById("response");
         const sourceElement = document.getElementById("source");
         const submitButton = document.getElementById("submit-button");
         const buttonLabel = document.getElementById("button-label");
         const buttonArrow = document.getElementById("button-arrow");
         const answerBody = document.querySelector(".answer-body");
+
+const translations = {
+    en: {
+        pageTitle: "How can we help?",
+        eyebrow: "IT support, made simpler",
+        intro: "Describe the issue you’re having. The assistant will look through the IT knowledge base and share the most relevant guidance.",
+        questionLabel: "What do you need help with?",
+        placeholder: "For example, I can’t connect to the office Wi-Fi…",
+        privacyNote: "Answers are based on your IT documentation",
+        examplesLabel: "Try asking about",
+        wifi: "Wi-Fi connection",
+        password: "Password reset",
+        printer: "Printer issue",
+        answerTitle: "Helpdesk response",
+        status: "Ready to assist",
+        initialResponse: "Your answer will appear here. Ask a question above to get started.",
+        button: "Ask IT Support",
+        searching: "Searching…",
+        emptyQuestion: "Please enter an IT question.",
+        connectionError: "Unable to connect to the IT Helpdesk. Please try again in a moment.",
+        knowledgeSource: "Knowledge source",
+        matchScore: "Match score",
+        wifiQuestion: "Wifi Troubleshooting",
+        passwordQuestion: "How do I reset my password?",
+        printerQuestion: "My printer troubleshooting"
+    },
+    es: {
+        pageTitle: "¿Cómo podemos ayudarte?",
+        eyebrow: "Soporte técnico, más sencillo",
+        intro: "Describe el problema que tienes. El asistente buscará en la base de conocimientos de TI y compartirá la orientación más relevante.",
+        questionLabel: "¿Con qué necesitas ayuda?",
+        placeholder: "Por ejemplo, no puedo conectarme al Wi-Fi de la oficina…",
+        privacyNote: "Las respuestas se basan en la documentación de TI",
+        examplesLabel: "Prueba preguntar sobre",
+        wifi: "Conexión Wi-Fi",
+        password: "Restablecer contraseña",
+        printer: "Problemas con la impresora",
+        answerTitle: "Respuesta de soporte técnico",
+        status: "Listo para ayudarte",
+        initialResponse: "Tu respuesta aparecerá aquí. Haz una pregunta para comenzar.",
+        button: "Consultar a soporte técnico",
+        searching: "Buscando…",
+        emptyQuestion: "Por favor, escribe una pregunta sobre TI.",
+        connectionError: "No se pudo conectar con el servicio de soporte técnico. Inténtalo de nuevo en un momento.",
+        knowledgeSource: "Fuente de conocimiento",
+        matchScore: "Puntuación de coincidencia",
+        wifiQuestion: "Problemas con la conexión Wi-Fi",
+        passwordQuestion: "¿Cómo puedo restablecer mi contraseña?",
+        printerQuestion: "Tengo problemas con mi impresora"
+    }
+};
+
+function updateLanguage() {
+    const language = languageSelect.value;
+    const text = translations[language];
+
+    document.documentElement.lang = language;
+
+    pageTitle.textContent = text.pageTitle;
+    eyebrow.textContent = text.eyebrow;
+    intro.textContent = text.intro;
+    questionLabel.textContent = text.questionLabel;
+    questionInput.placeholder = text.placeholder;
+    privacyNote.textContent = text.privacyNote;
+    examplesLabel.textContent = text.examplesLabel;
+
+    wifiExample.textContent = text.wifi;
+    wifiExample.dataset.question = text.wifiQuestion;
+
+    passwordExample.textContent = text.password;
+    passwordExample.dataset.question = text.passwordQuestion;
+
+    printerExample.textContent = text.printer;
+    printerExample.dataset.question = text.printerQuestion;
+
+    answerTitle.textContent = text.answerTitle;
+    statusText.textContent = text.status;
+
+    buttonLabel.textContent = text.button;
+}
 
         document.querySelectorAll(".example").forEach((button) => {
             button.addEventListener("click", () => {
@@ -247,6 +345,8 @@
             });
         });
 
+        languageSelect.addEventListener("change", updateLanguage);
+        updateLanguage();
         form.addEventListener("submit", askHelpdesk);
 
         async function askHelpdesk(event) {
@@ -254,18 +354,18 @@
             const question = questionInput.value.trim();
 
             if (!question) {
-                responseElement.textContent = "Please enter an IT question.";
+                responseElement.textContent = translations[languageSelect.value].emptyQuestion;
                 responseElement.className = "is-error";
                 sourceElement.classList.remove("visible");
                 return;
             }
 
-            responseElement.textContent = "Searching the IT knowledge base…";
+            responseElement.textContent = translations[languageSelect.value].searching;
             responseElement.className = "";
             sourceElement.textContent = "";
             sourceElement.classList.remove("visible");
             submitButton.disabled = true;
-            buttonLabel.textContent = "Searching…";
+            buttonLabel.textContent = translations[languageSelect.value].searching;
             buttonArrow.outerHTML = '<span class="spinner" id="button-arrow" aria-hidden="true"></span>';
             answerBody.setAttribute("aria-busy", "true");
 
@@ -280,7 +380,7 @@
                 if (data.source !== undefined || data.score !== undefined) {
                     const sourceLabel = document.createElement("span");
                     sourceLabel.className = "source-label";
-                    sourceLabel.textContent = "Knowledge source";
+                    sourceLabel.textContent = translations[languageSelect.value].knowledgeSource;
 
                     const sourceValue = document.createElement("span");
                     sourceValue.className = "source-value";
@@ -290,7 +390,7 @@
                     if (data.score !== undefined && data.score !== null) {
                         const scoreLabel = document.createElement("span");
                         scoreLabel.className = "source-label";
-                        scoreLabel.textContent = "Match score";
+                        scoreLabel.textContent = translations[languageSelect.value].matchScore;
                         const scoreValue = document.createElement("span");
                         scoreValue.className = "score-value";
                         const score = Number(data.score);
@@ -300,11 +400,11 @@
                     sourceElement.classList.add("visible");
                 }
             } catch (error) {
-                responseElement.textContent = "Unable to connect to the IT Helpdesk. Please try again in a moment.";
+                responseElement.textContent = translations[languageSelect.value].connectionError;
                 responseElement.className = "is-error";
             } finally {
                 submitButton.disabled = false;
-                buttonLabel.textContent = "Ask IT Support";
+                buttonLabel.textContent = translations[languageSelect.value].button;
                 const spinner = document.getElementById("button-arrow");
                 if (spinner) spinner.outerHTML = '<svg id="button-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
                 answerBody.setAttribute("aria-busy", "false");
