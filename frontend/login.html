@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | Northstar IT</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f3f5f8;
+            font-family: Arial, sans-serif;
+            color: #17243a;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 410px;
+            margin: 24px;
+            padding: 40px;
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 14px;
+            box-shadow: 0 12px 35px rgba(20, 35, 55, 0.08);
+        }
+
+        .brand {
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .brand-name {
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: -0.7px;
+        }
+
+        .brand-name span {
+            color: #4776a8;
+        }
+
+        .brand-subtitle {
+            margin-top: 7px;
+            color: #8491a1;
+            font-size: 12px;
+        }
+
+        h1 {
+            margin: 0 0 9px;
+            font-size: 23px;
+        }
+
+        .description {
+            margin: 0 0 27px;
+            color: #788596;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 13px;
+            margin-bottom: 20px;
+            border: 1px solid #dce2e9;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4776a8;
+            box-shadow: 0 0 0 3px rgba(71, 118, 168, 0.12);
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 7px;
+            background: #203b5c;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #294d75;
+        }
+
+        button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        .error {
+            display: none;
+            margin-bottom: 17px;
+            padding: 11px;
+            border-radius: 6px;
+            background: #fff0f0;
+            color: #b42318;
+            font-size: 13px;
+        }
+
+        .footer {
+            margin-top: 25px;
+            color: #9aa4b1;
+            font-size: 11px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="login-card">
+        <div class="brand">
+            <div class="brand-name">Northstar <span>IT</span></div>
+            <div class="brand-subtitle">AI IT Helpdesk Assistant</div>
+        </div>
+
+        <h1>Welcome back</h1>
+        <p class="description">
+            Sign in to access your organization's IT support assistant.
+        </p>
+
+        <form id="login-form">
+            <label for="username">Username</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                autocomplete="username"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                autocomplete="current-password"
+                required
+            >
+
+            <div class="error" id="error-message" role="alert"></div>
+
+            <button type="submit" id="login-button">Sign In</button>
+        </form>
+
+        <div class="footer">
+            Northstar IT · Secure Demo Access
+        </div>
+    </main>
+
+    <script>
+        const form = document.getElementById("login-form");
+        const errorMessage = document.getElementById("error-message");
+        const loginButton = document.getElementById("login-button");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            errorMessage.style.display = "none";
+            loginButton.disabled = true;
+            loginButton.textContent = "Signing in...";
+
+            try {
+                const response = await fetch("/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        username: document.getElementById("username").value,
+                        password: document.getElementById("password").value
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.detail || "Unable to sign in.");
+                }
+
+                window.location.href = "/";
+
+            } catch (error) {
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = "block";
+            } finally {
+                loginButton.disabled = false;
+                loginButton.textContent = "Sign In";
+            }
+        });
+    </script>
+</body>
+</html>

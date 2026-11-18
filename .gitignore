@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Northstar IT authentication
+backend/app/users.db
+backend/app/users.db-journal

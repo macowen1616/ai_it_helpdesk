@@ -85,6 +85,21 @@
         .profile { display: flex; align-items: center; gap: 10px; color: #556579; font-size: 12px; }
         .avatar { display: grid; place-items: center; width: 33px; height: 33px; color: #2455a6; background: #e6efff; border-radius: 50%; font-size: 11px; font-weight: 700; }
 
+#logout-button {
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: white;
+    color: #556579;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#logout-button:hover {
+    background: #f4f7fa;
+    color: var(--blue-dark);
+}
+
         .content { width: min(100% - 48px, 850px); margin: 0 auto; padding: 56px 0 64px; }
         .eyebrow { display: flex; align-items: center; gap: 8px; margin: 0 0 13px; color: #38705d; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
         .eyebrow-dot { width: 7px; height: 7px; background: #49b88a; border-radius: 50%; box-shadow: 0 0 0 4px #e0f5eb; }
@@ -182,7 +197,11 @@
         </select>
     </div>
 
-    <div class="profile"><div class="avatar" aria-hidden="true">IT</div><span>Employee portal</span></div>
+    <div class="profile">
+    <div class="avatar" aria-hidden="true">IT</div>
+    <span>Employee portal</span>
+    <button id="logout-button" type="button">Log out</button>
+</div>
 </header>
 
             <section class="content" aria-labelledby="page-title">
@@ -257,6 +276,24 @@
         const buttonLabel = document.getElementById("button-label");
         const buttonArrow = document.getElementById("button-arrow");
         const answerBody = document.querySelector(".answer-body");
+
+const logoutButton = document.getElementById("logout-button");
+
+logoutButton.addEventListener("click", async () => {
+    try {
+        const response = await fetch("/logout", {
+            method: "POST"
+        });
+
+        if (!response.ok) {
+            throw new Error("Unable to log out.");
+        }
+
+        window.location.replace("/");
+    } catch (error) {
+        alert("Unable to log out. Please try again.");
+    }
+});
 
 const translations = {
     en: {
