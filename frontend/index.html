@@ -189,13 +189,14 @@
             <header class="topbar">
     <div class="breadcrumb">Support <span aria-hidden="true">/</span> <strong>Helpdesk assistant</strong></div>
 
-    <div class="language-switcher">
-        <label for="language-select">Language:</label>
-        <select id="language-select">
-            <option value="en">English</option>
-            <option value="es">Español</option>
-        </select>
-    </div>
+<div class="language-switcher">
+    <label for="language-select">Language:</label>
+    <select id="language-select">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="zh-TW">繁體中文</option>
+    </select>
+</div>
 
     <div class="profile">
     <div class="avatar" aria-hidden="true">IT</div>
@@ -295,6 +296,7 @@ logoutButton.addEventListener("click", async () => {
     }
 });
 
+
 const translations = {
     en: {
         pageTitle: "How can we help?",
@@ -343,8 +345,34 @@ const translations = {
         wifiQuestion: "Problemas con la conexión Wi-Fi",
         passwordQuestion: "¿Cómo puedo restablecer mi contraseña?",
         printerQuestion: "Tengo problemas con mi impresora"
+    },
+    "zh-TW": {
+        pageTitle: "我們可以如何幫助您？",
+        eyebrow: "讓 IT 技術支援更簡單",
+        intro: "請描述您遇到的問題。助理會搜尋 IT 知識庫，並提供最相關的解決建議。",
+        questionLabel: "您需要什麼協助？",
+        placeholder: "例如：我無法連接辦公室的 Wi-Fi……",
+        privacyNote: "回答內容根據 IT 技術文件提供",
+        examplesLabel: "您可以詢問以下問題",
+        wifi: "Wi-Fi 連線問題",
+        password: "重設密碼",
+        printer: "印表機問題",
+        answerTitle: "技術支援回覆",
+        status: "隨時為您提供協助",
+        initialResponse: "您的回答將顯示在這裡。請先輸入問題以開始使用。",
+        button: "詢問 IT 技術支援",
+        searching: "搜尋中……",
+        emptyQuestion: "請輸入 IT 相關問題。",
+        connectionError: "無法連接 IT 技術支援服務。請稍後再試。",
+        knowledgeSource: "知識來源",
+        matchScore: "匹配分數",
+        wifiQuestion: "Wi-Fi 連線疑難排解",
+        passwordQuestion: "如何重設我的密碼？",
+        printerQuestion: "我的印表機發生問題"
     }
 };
+
+
 
 function updateLanguage() {
     const language = languageSelect.value;
@@ -371,9 +399,10 @@ function updateLanguage() {
 
     answerTitle.textContent = text.answerTitle;
     statusText.textContent = text.status;
-
     buttonLabel.textContent = text.button;
+
 }
+
 
         document.querySelectorAll(".example").forEach((button) => {
             button.addEventListener("click", () => {

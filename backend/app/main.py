@@ -99,11 +99,11 @@ def search(query: str, request: Request):
 @app.get("/ask")
 def ask(query: str, request: Request, language: str = "en"):
     require_login(request)
-    if language not in ("en", "es"):
-        raise HTTPException(
-            status_code=400,
-            detail="Unsupported language. Choose 'en' or 'es'."
-        )
+    if language not in ("en", "es", "zh-TW"):
+     raise HTTPException(
+        status_code=400,
+        detail="Unsupported language. Choose 'en', 'es', or 'zh-TW'."
+    )
 
     # Translate Spanish questions into English for document retrieval.
     search_query = translate_query_to_english(query, language)
