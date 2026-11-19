@@ -401,6 +401,12 @@ function updateLanguage() {
     statusText.textContent = text.status;
     buttonLabel.textContent = text.button;
 
+    if (
+    !responseElement.classList.contains("has-answer") &&
+    !responseElement.classList.contains("is-error")
+) {
+    responseElement.textContent = text.initialResponse;
+}
 }
 
 
