@@ -12,7 +12,8 @@ DOCUMENTS_DIR = Path(__file__).resolve().parents[2] / "documents"
 def create_embedding(text: str):
     response = ollama.embed(
         model=MODEL,
-        input=text
+        input=text,
+        keep_alive="30m"
     )
 
     return np.array(response["embeddings"][0])

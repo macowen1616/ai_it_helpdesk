@@ -95,6 +95,7 @@ Answer clearly and concisely. Do not add greetings or filler.
             },
         ],
         options={"temperature": 0},
+        keep_alive="30m",
     )
 
     answer = response["message"]["content"].strip()

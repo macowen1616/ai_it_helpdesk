@@ -50,7 +50,8 @@ def translate_query_to_english(query: str, language: str):
             },
         ],
         options={"temperature": 0},
-    )
+keep_alive="30m",
+)
 
     translated = response["message"]["content"].strip()
 
