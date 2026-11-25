@@ -175,10 +175,22 @@
                 </div>
                 <div><div class="brand-name">Northstar IT</div><div class="brand-subtitle">Employee support</div></div>
             </div>
-            <div class="nav-label">Workspace</div>
-            <div class="nav-item" aria-current="page">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v5c0 5 3.4 8 8 9 4.6-1 8-4 8-9V7l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg>
+           <div class="nav-label">Workspace</div>
+
+            <div class="nav-item active" data-page="assistant">
                 Helpdesk assistant
+            </div>
+
+            <div class="nav-item" data-page="tickets">
+                My tickets
+            </div>
+
+            <div class="nav-item" data-page="new-ticket">
+                Submit a ticket
+            </div>
+
+            <div class="nav-item" id="admin-nav" data-page="admin" hidden>
+             Admin dashboard
             </div>
             <div class="sidebar-spacer"></div>
             <div class="sidebar-note"><p class="sidebar-note-title">Need more help?</p><p>If your issue is urgent or not covered here, contact your IT support team.</p></div>
@@ -198,10 +210,10 @@
     </select>
 </div>
 
-    <div class="profile">
-    <div class="avatar" aria-hidden="true">IT</div>
-    <span>Employee portal</span>
-    <button id="logout-button" type="button">Log out</button>
+<div class="profile">
+        <div class="avatar" id="user-avatar" aria-hidden="true">IT</div>
+        <span id="username-display">Loading account...</span>
+        <button id="logout-button" type="button">Log out</button>
 </div>
 </header>
 
@@ -277,6 +289,35 @@
         const buttonLabel = document.getElementById("button-label");
         const buttonArrow = document.getElementById("button-arrow");
         const answerBody = document.querySelector(".answer-body");
+        const usernameDisplay = document.getElementById("username-display");
+        const userAvatar = document.getElementById("user-avatar");
+        const adminNav = document.getElementById("admin-nav");
+
+async function loadCurrentUser() {
+    try {
+        const response = await fetch("/me");
+
+        if (!response.ok) {
+            window.location.href = "/index.html";
+            return;
+        }
+
+        const user = await response.json();
+
+        usernameDisplay.textContent = user.username;
+        userAvatar.textContent = user.username.substring(0, 2).toUpperCase();
+
+        if (user.role === "admin") {
+            adminNav.hidden = false;
+        }
+
+    } catch (error) {
+        console.error("Unable to load account information:", error);
+        window.location.href = "/login.html";
+    }
+}
+
+loadCurrentUser();
 
 const logoutButton = document.getElementById("logout-button");
 
